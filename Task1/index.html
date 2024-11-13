@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Table with React</title>
+    
+    <!-- React and ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel for JSX support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+    
+        th, td {
+            padding: 0;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 14px;
+
+        }
+        tr {
+            background-color: #f2f2f2;
+        }
+    
+        input {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+        }
+    
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: auto;
+            display: block;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    
+        button:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <!-- React code -->
+    <script type="text/babel">
+        // React component for editable table
+        function EditableTable() {
+            // Sample data for the table
+            const initialData = [
+                { id: 1, name: 'Onboarding Call', month1: '' , month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 2, name: 'Google Search Console Access', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 3, name: 'Google Analytics Access', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 4, name: 'Website Access', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 5, name: 'Technical Audit', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 6, name: 'Anchor Text and Semantic Analysis', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 7, name: 'Competitor Analysis', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' }, 
+                { id: 8, name: 'Anchor Text and URL Mapping', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 9, name: 'Google Data Studio Report + Local Reporting Suite', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 10, name: 'Site Level Optimization', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 11, name: 'On Page Optimization', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 12, name: 'Content Creation', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 13, name: 'Content Publishing', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 14, name: 'Premium Press Release', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 15, name: 'Authority Niche Payments', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 16, name: 'Review Management', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 17, name: 'Index Links', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+                { id: 18, name: 'Video Recap', month1: '', month2: '', month3: '', month4: '', month5: '', month6: '' },
+            ];
+
+            // State to store table data
+            const [data, setData] = React.useState(initialData);
+
+            // Handle input changes for editable cells
+            const handleInputChange = (e, rowIndex, column) => {
+                const updatedData = [...data];
+                updatedData[rowIndex][column] = e.target.value;
+                setData(updatedData);
+            };
+
+            // Handle submit to simulate an API POST
+            const handleSubmit = () => {
+                console.log('Data ready to be sent to API:', data);
+                alert('Data submitted successfully!');  
+            };
+
+            return (
+                <div>
+                    <h2>Editable Table</h2>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th style={{ width: '300px', textAlign: 'center', padding: '5px'  }}>Month1</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map((row, rowIndex) => (
+                                <tr key={row.id}>
+                                    <td>
+                                        {row.name}
+                                        
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="number" 
+                                            value={row.month1} 
+                                            onChange={(e) => handleInputChange(e, rowIndex, 'month1')} 
+                                        />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="number" 
+                                            value={row.month2} 
+                                            onChange={(e) => handleInputChange(e, rowIndex, 'month2')} 
+                                        />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="number" 
+                                            value={row.month3} 
+                                            onChange={(e) => handleInputChange(e, rowIndex, 'month3')} 
+                                        />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="number" 
+                                            value={row.month4} 
+                                            onChange={(e) => handleInputChange(e, rowIndex, 'month4')} 
+                                        />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="number" 
+                                            value={row.month5} 
+                                            onChange={(e) => handleInputChange(e, rowIndex, 'month5')} 
+                                        />
+                                    </td>
+                                    <td>
+                                        <input 
+                                            type="number" 
+                                            value={row.month6} 
+                                            onChange={(e) => handleInputChange(e, rowIndex, 'month6')} 
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    <button onClick={handleSubmit}>Submit Data</button>
+                </div>
+            );
+        }
+
+        // Render the EditableTable component
+        ReactDOM.render(
+            <EditableTable />,
+            document.getElementById('root')
+        );
+    </script>
+
+</body>
+</html>
